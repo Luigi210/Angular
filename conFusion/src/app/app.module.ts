@@ -8,8 +8,15 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
 import { DishService } from './services/dish.service';
-// import { MaterialModule } from '@angular/material';
+import { 
+  MatFormFieldModule,
+  MatInputModule,
+  MatRippleModule, 
+  MatCheckboxModule,
+} from '@angular/material';
 // import { MdCardModule } from '@angular/material';
 
 
@@ -20,6 +27,7 @@ import { MenuComponent } from './menu/menu.component';
 import { DishdetailComponent } from './dishdetail/dishdetail.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -30,6 +38,7 @@ import { FooterComponent } from './footer/footer.component';
     DishdetailComponent,
     HeaderComponent,
     FooterComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +49,15 @@ import { FooterComponent } from './footer/footer.component';
     MatGridListModule,    
     MatCardModule,    
     MatButtonModule,
-    // MdCardModule
+    MatDialogModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
+    MatCheckboxModule
+  ],
+  entryComponents: [
+    LoginComponent
   ],
   providers: [DishService],
   bootstrap: [AppComponent]
