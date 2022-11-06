@@ -9,8 +9,21 @@ import { Dish } from '../shared/dish';
 export class DishService {
 
   constructor() { }
-  getDishes(): Dish[] {
-    return DISHES;
+  getDishes(): Promise<Dish[]> {
+    return new Promise(res => {
+      setTimeout(() => res(DISHES), 2000);
+    });
+  }
+
+  getDish(id: string): Promise<Dish> {
+    return new Promise(res => {
+      setTimeout(() => res(DISHES.filter((dish) => dish.id === id)[0]), 2000);
+    }); 
+  }
+  getFeaturedDish(): Promise<Dish> {
+    return new Promise((res) => {
+      setTimeout(() => res(DISHES.filter((dish) => dish.featured)[0]), 2000);
+    })
   }
 
 }

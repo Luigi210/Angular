@@ -1,0 +1,68 @@
+<div 
+  class="container" 
+  fxLayout="row" 
+  fxLayout.sm="column" 
+  fxLayout.xs="column" 
+  fxLayoutAlign.gt-md="space-around center" 
+  fxLayoutGap="10px"
+>
+
+  <mat-card *ngIf="dish" fxFlex>
+    <mat-card-header>
+      <div md-card-avatar></div>
+      <mat-card-title>
+        <h3>{{dish.name | uppercase}}</h3>
+      </mat-card-title>
+    </mat-card-header>
+    <img md-card-image src="{{BaseURL + dish.image}}" alt={{dish.name}}>
+    <mat-card-content>
+      <p>{{dish.description}}
+      </p>
+    </mat-card-content>
+  </mat-card>
+  <div [hidden]="dish || dishErrMess">
+    <!--<md-spinner></md-spinner>-->
+    <h4>Loading . . . Please Wait</h4>
+  </div>
+  <div *ngIf="dishErrMess">
+    <h2>Error</h2>
+    <h4>{{dishErrMess}}</h4>
+  </div>
+
+  <mat-card *ngIf="promotion" fxFlex>
+    <mat-card-header>
+      <div md-card-avatar></div>
+      <mat-card-title>
+        <h3>{{promotion.name | uppercase}}</h3>
+      </mat-card-title>
+    </mat-card-header>
+    <img md-card-image src="{{promotion.image}}" alt={{promotion.name}}>
+    <mat-card-content>
+      <p>{{promotion.description}}
+      </p>
+    </mat-card-content>
+  </mat-card>
+  <div [hidden]="promotion">
+    <!---<mat-spinner></mat-spinner>-->
+    <h4>Loading . . . Please Wait</h4>
+  </div>
+
+  <!--<md-card *ngIf="leader" fxFlex [@expand]>
+    <md-card-header>
+      <div md-card-avatar></div>
+      <md-card-title>
+        <h3>{{leader.name + " " + leader.abbr | uppercase}}</h3>
+      </md-card-title>
+    </md-card-header>
+    <img md-card-image src="{{leader.image}}" alt={{leader.name}}>
+    <md-card-content>
+      <p>{{leader.designation}}</p>
+      <p>{{leader.description}}</p>
+    </md-card-content>
+  </md-card>
+  <div [hidden]="leader">
+    <md-spinner></md-spinner>
+    <h4>Loading . . . Please Wait</h4>
+  </div>-->
+
+</div>

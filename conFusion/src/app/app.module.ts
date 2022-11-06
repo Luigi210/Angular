@@ -9,16 +9,19 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DishService } from './services/dish.service';
 import { 
   MatFormFieldModule,
   MatInputModule,
   MatRippleModule, 
   MatCheckboxModule,
+  MatSelectModule,
+  MatSlideToggleModule,
 } from '@angular/material';
+import {RouterModule} from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material';
 // import { MdCardModule } from '@angular/material';
-
 
 import 'hammerjs';
 
@@ -28,6 +31,11 @@ import { DishdetailComponent } from './dishdetail/dishdetail.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
+import { AboutComponent } from './about/about.component';
+import { HomeComponent } from './home/home.component';
+import { ContactComponent } from './contact/contact.component';
+import { PromotionService } from './services/promotion.services';
+import { routes } from './app-routing/routes';
 
 
 
@@ -39,6 +47,9 @@ import { LoginComponent } from './login/login.component';
     HeaderComponent,
     FooterComponent,
     LoginComponent,
+    AboutComponent,
+    HomeComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,12 +65,17 @@ import { LoginComponent } from './login/login.component';
     MatFormFieldModule,
     MatInputModule,
     MatRippleModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSelectModule,
+    MatSlideToggleModule,
+    ReactiveFormsModule,
+    MatProgressSpinnerModule,
+    RouterModule.forRoot(routes)
   ],
   entryComponents: [
     LoginComponent
   ],
-  providers: [DishService],
+  providers: [DishService, PromotionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
