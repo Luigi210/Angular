@@ -2,6 +2,7 @@
   fxLayoutGap="10px" fxLayoutGap.xs="0">
   	<div fxFlex="40">
     	<div fxFlex *ngIf="dish">
+			<button (click)="back()">Back</button>
       		<mat-card>
         		<mat-card-header>
           			<mat-card-title>
@@ -16,6 +17,18 @@
           			<button md-button>LIKE</button>
           			<button md-button>SHARE</button>
         		</mat-card-actions>
+        		<mat-card-actions>
+					<button md-button [routerLink]="['/dishdetail', prev]">
+						<span class="fa fa-chevron-left fa-lg">
+							Prev
+						</span>
+					</button>
+					<button md-button [routerLink]="['/dishdetail', next]">
+						<span class="fa fa-chevron-right fa-lg">
+							Next
+						</span>
+					</button>
+				</mat-card-actions>
       		</mat-card>
     	</div>
   	</div>

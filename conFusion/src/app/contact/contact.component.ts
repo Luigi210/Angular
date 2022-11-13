@@ -60,10 +60,10 @@ export class ContactComponent implements OnInit {
       message: ''
     });
 
-      // this.feedbackForm.valueChanges
-      //   .subscribe(data => this.onValueChange(data));
+    this.feedbackForm.valueChanges
+      .subscribe(data => this.onValueChange(data));
 
-      // this.onValueChange(); // reset form validation message
+    this.onValueChange(); // reset form validation message
     }
 
   onSubmit(){
@@ -79,5 +79,20 @@ export class ContactComponent implements OnInit {
       message: ''
     });
     this.feedbackFormDirective.resetForm();
+  }
+
+  onValueChange(data?: any) {  // optional parameter
+    if (!this.feedbackForm) { return; }
+    const form = this.feedbackForm;
+    for (const field in this.formErrors) {
+      this.formErrors[field] = '';
+      const control = form.get(field);
+      if (control && control.dirty && !control.valid) {
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
   }
 }
