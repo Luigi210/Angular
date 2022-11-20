@@ -9,7 +9,7 @@
             			<h3 *ngIf="dish">{{ dish.name | uppercase }}</h3>
           			</mat-card-title>
         		</mat-card-header>
-        		<img md-card-image src="{{dish.image}}" alt="{{dish.name}}">
+        		<img md-card-image src="{{'http://localhost:3000/' + dish.image}}" alt="{{dish.name}}">
         		<mat-card-content>
           			<p>{{ dish.description}} </p>
         		</mat-card-content>
@@ -48,4 +48,8 @@
 			</mat-list-item>
 		</mat-list>
   	</div>
+	<div fxFlex *ngIf="errMess">
+		<h2>Error</h2>
+		<h4>{{errMess}}</h4>
+	</div>
 </div>

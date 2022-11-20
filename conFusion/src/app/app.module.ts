@@ -21,6 +21,8 @@ import {
 } from '@angular/material';
 import {RouterModule} from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
+import { baseUrl } from './shared/baseurl';
 // import { MdCardModule } from '@angular/material';
 
 import 'hammerjs';
@@ -36,6 +38,8 @@ import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { PromotionService } from './services/promotion.services';
 import { routes } from './app-routing/routes';
+import { HttpModule } from '@angular/http';
+import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
 
 
 
@@ -70,12 +74,22 @@ import { routes } from './app-routing/routes';
     MatSlideToggleModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
+    HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(routes)
   ],
   entryComponents: [
     LoginComponent
   ],
-  providers: [DishService, PromotionService],
+  providers: [
+    DishService, 
+    PromotionService,
+    ProcessHTTPMsgService,
+    {
+      provide: 'BaseURL',
+      useValue: baseUrl
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

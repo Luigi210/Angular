@@ -1,33 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { DishService } from '../services/dish.service';
+import { ProcessHTTPMsgService } from '../services/process-httpmsg.service';
 import { Dish } from '../shared/dish';
-import { DISHES } from '../shared/dishes';
-
 
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+  styleUrls: ['./menu.component.scss'],
+  providers: [ProcessHTTPMsgService]
 })
 export class MenuComponent implements OnInit {
 
   dishes: Dish[];
-  
-  selectedDish: Dish;
+  errMess: string;
+  // selectedDish: Dish;
 
 
-  constructor(private dishService: DishService) { }
+  constructor(private dishService: DishService,
+      @Inject('BaseURL') private baseUrl
+    ) { }
 
   ngOnInit() {
     this.dishService.getDishes()
-    .subscribe(dishes => this.dishes = dishes);
+    .subscribe(dishes => this.dishes = dishes,
+      errmess => this.errMess = <any>errmess);
   }
 
-  onSelect(dish: Dish){
-    this.selectedDish = dish;
-    console.log(this.selectedDish, dish)
-  }
+  // onSelect(dish: Dish){
+  //   this.selectedDish = dish;
+  //   console.log(this.selectedDish, dish)
+  // }
 
   // async getDishes(){
   //   this.dishes = await this.dishService.getDishes().then(dishes => this.dishes = this.dishes)

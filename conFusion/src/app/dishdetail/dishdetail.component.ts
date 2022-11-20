@@ -1,52 +1,9 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, Inject } from '@angular/core';
 import { Dish } from '../shared/dish';
 import { Location } from '@angular/common';
 import {switchMap} from 'rxjs/operators';
 import { DishService } from '../services/dish.service';
 import { ActivatedRoute, Params } from '@angular/router';
-
-const DISH = {
-	id: '0',
-	name: 'Uthappizza',
-	image: '/assets/images/uthappizza.png',
-	category: 'mains',
-	label: 'Hot',
-	featured: true,
-	price: '4.99',
-	description: 'A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.',
-	comments: [
-		{
-			rating: 5,
-			comment: "Imagine all the eatables, living in conFusion!",
-			author: "John Lemon",
-			date: "2012-10-16T17:57:28.556094Z"
-		},
-		{
-			rating: 4,
-			comment: "Sends anyone to heaven, I wish I could get my mother-in-law to eat it!",
-			author: "Paul McVites",
-			date: "2014-09-05T17:57:28.556094Z"
-		},
-		{
-			rating: 3,
-			comment: "Eat it, just eat it!",
-			author: "Michael Jaikishan",
-			date: "2015-02-13T17:57:28.556094Z"
-		},
-		{
-			rating: 4,
-			comment: "Ultimate, Reaching for the stars!",
-			author: "Ringo Starry",
-			date: "2013-12-02T17:57:28.556094Z"
-		},
-		{
-			rating: 2,
-			comment: "It's your birthday, we're gonna party!",
-			author: "25 Cent",
-			date: "2011-12-02T17:57:28.556094Z"
-		}
-	]
-};
 
 @Component({
 	selector: 'app-dishdetail',
@@ -57,30 +14,26 @@ const DISH = {
 export class DishdetailComponent implements OnInit {
 	@Input()
 	dish: Dish;
-
 	
+	dishCopy: Dish;
+	errMess: string;
 	dishIds: string[];
 	prev: string;
 	next: string;
-
 	// dish = DISH;
 
 	constructor(private loc: Location, 
 		private dishService: DishService,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
+		@Inject('BaseURL') private baseUrl
 		) { }
 
 	ngOnInit() {
-		this.dishService.getDishIds().subscribe((dishIds: string[]) => this.dishIds = dishIds);
+		this.dishService.getDishIds().subscribe((dishIds: string[]) => this.dishIds = dishIds, 
+			errmess => this.errMess = <any>errmess);
 		this.route.params.pipe(switchMap((params: Params) => {
 			return this.dishService.getDish(params['id']);}))
-			.subscribe(dish => {this.dish = dish; this.setPrevNext(dish.id)});
-		// this.route.params.pipe(switchMap((params: Params) => {return this.dishService.getDish(params['id']);}))
-		// .subscribe(dish => {
-		// 		this.dish = dish;
-		// 		this.setPrevNext(parseInt(dish.id));
-		// 	});
-		// }
+			.subscribe(dish => {this.dish = dish; this.dishCopy = dish, this.setPrevNext(dish.id)});
 	}
 	setPrevNext(dishId: string) {
 		let index = this.dishIds.indexOf(dishId);
@@ -91,5 +44,20 @@ export class DishdetailComponent implements OnInit {
 	back(): void {
 		this.loc.back();
 	}
+
+	// onSubmit(){
+	// 	// this.dishCopy.comments.push()
+	// 	this.dishService.putDish(this.dishCopy)
+	// 		.subscribe(dish => {
+	// 			this.dish = dish;
+	// 			this.dishCopy = dish;
+	// 		},
+	// 		errmess => {
+	// 			this.dish = null;
+	// 			this.dishCopy = null;
+	// 			this.errMess = <any>errmess;
+	// 		}
+	// 	)
+	// }
 
 }
