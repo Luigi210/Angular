@@ -40,6 +40,7 @@ import { PromotionService } from './services/promotion.services';
 import { routes } from './app-routing/routes';
 import { HttpModule } from '@angular/http';
 import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
+import { HighlightDirective } from './directives/highlight.directive';
 
 
 
@@ -54,6 +55,7 @@ import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
     AboutComponent,
     HomeComponent,
     ContactComponent,
+    HighlightDirective,
   ],
   imports: [
     BrowserModule,

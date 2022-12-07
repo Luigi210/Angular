@@ -4,12 +4,23 @@ import { Location } from '@angular/common';
 import {switchMap} from 'rxjs/operators';
 import { DishService } from '../services/dish.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+import { flyInOut, visibility, expand } from '../animations/app.animation';
 
 @Component({
 	selector: 'app-dishdetail',
 	templateUrl: './dishdetail.component.html',
 	styleUrls: ['./dishdetail.component.scss'],
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
+	host: {
+		'[@flyInOut]': 'true',
+		'style': 'display: block;'
+	},
+	animations: [
+		visibility(),
+		flyInOut(),
+		expand()
+	]
 })
 export class DishdetailComponent implements OnInit {
 	@Input()
@@ -20,6 +31,8 @@ export class DishdetailComponent implements OnInit {
 	dishIds: string[];
 	prev: string;
 	next: string;
+
+	visibility = 'shown';
 	// dish = DISH;
 
 	constructor(private loc: Location, 
@@ -32,8 +45,9 @@ export class DishdetailComponent implements OnInit {
 		this.dishService.getDishIds().subscribe((dishIds: string[]) => this.dishIds = dishIds, 
 			errmess => this.errMess = <any>errmess);
 		this.route.params.pipe(switchMap((params: Params) => {
+			this.visibility = 'hidden';
 			return this.dishService.getDish(params['id']);}))
-			.subscribe(dish => {this.dish = dish; this.dishCopy = dish, this.setPrevNext(dish.id)});
+			.subscribe(dish => {this.dish = dish; this.dishCopy = dish, this.setPrevNext(dish.id), this.visibility = 'shown'});
 	}
 	setPrevNext(dishId: string) {
 		let index = this.dishIds.indexOf(dishId);
